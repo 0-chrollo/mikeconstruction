@@ -677,6 +677,309 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .gallery-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-gap: 15px;
+        grid-auto-flow: dense;
+    }
+    
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 2px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+        cursor: pointer;
+    }
+    
+    .gallery-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s;
+    }
+    
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+    
+    /* Varying sizes for images */
+    .wide {
+        grid-column: span 2;
+    }
+    
+    .tall {
+        grid-row: span 2;
+    }
+    
+    .big {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+    
+    /* Lightbox styles */
+    .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+    
+    .lightbox.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+    }
+    
+    .lightbox-img {
+        display: block;
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 4px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .lightbox-close {
+        position: absolute;
+        top: -40px;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .lightbox-close:hover {
+        background-color: rgba(255, 255, 255, 1);
+    }
+    
+    .lightbox-close::before,
+    .lightbox-close::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 2px;
+        background-color: #000;
+    }
+    
+    .lightbox-close::before {
+        transform: rotate(45deg);
+    }
+    
+    .lightbox-close::after {
+        transform: rotate(-45deg);
+    }
+    
+    @media (max-width: 768px) {
+        .gallery {
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-gap: 10px;
+        }
+        
+        /* Simplify sizes on mobile */
+        .wide, .big {
+            grid-column: span 1;
+        }
+        
+        .tall, .big {
+            grid-row: span 1;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .gallery {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            grid-gap: 8px;
+        }
+    }
+</style>
+
+<!-- Your existing header would go here -->
+
+<div class="gallery-container">
+    <div class="gallery">
+        <!-- Example of how to add your images manually: -->
+        <div class="gallery-item">
+            <img src="images/1744402646004.jpg" alt="Project 1">
+        </div>
+        <div class="gallery-item wide">
+            <img src="images/1744404609308.jpg" alt="Project 2">
+        </div>
+        <div class="gallery-item tall">
+            <img src="images/1744404610679.jpg" alt="Project 3">
+        </div>
+        <div class="gallery-item">
+            <img src="images/1744404613413.jpg" alt="Project 4">
+        </div>
+        <div class="gallery-item">
+            <img src="images/1744404634524.jpg" alt="Project 5">
+        </div>
+        <div class="gallery-item big">
+            <img src="images/1744404643537.jpg" alt="Project 6">
+        </div>
+
+   
+    </div>
+
+    <br>
+    <div class="line">
+    </div>
+    
+</div>
+
+<!-- Lightbox container -->
+<div class="lightbox">
+    <div class="lightbox-content">
+        <div class="lightbox-close"></div>
+        <img class="lightbox-img" src="" alt="">
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Randomize gallery layout
+        const gallery = document.querySelector('.gallery');
+        const items = Array.from(gallery.children);
+        
+        items.forEach(item => {
+            item.style.order = Math.floor(Math.random() * items.length);
+        });
+        
+        // Lightbox functionality
+        const lightbox = document.querySelector('.lightbox');
+        const lightboxImg = document.querySelector('.lightbox-img');
+        const lightboxClose = document.querySelector('.lightbox-close');
+        
+        // Open lightbox when clicking on gallery items
+        items.forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.querySelector('img').src;
+                const imgAlt = this.querySelector('img').alt;
+                
+                lightboxImg.src = imgSrc;
+                lightboxImg.alt = imgAlt;
+                lightbox.classList.add('active');
+                
+                // Prevent body scrolling when lightbox is open
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close lightbox when clicking the X button
+        lightboxClose.addEventListener('click', function() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close lightbox when clicking outside the image
+        lightbox.addEventListener('click', function(e) {
+            // Only close if clicking outside the image (on the black background)
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close lightbox with escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     <!-- Footer -->
     <footer>
