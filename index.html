@@ -482,45 +482,96 @@
         <p>Creating extraordinary spaces through innovative design and quality craftsmanship. Transform your vision into reality.</p>
         <a href="about.html" class="btn">Know More <i>→</i></a>
     </section>
+
+
     
     <!-- Contact Form Section -->
-    <section class="contact-section">
-        <h2>Request a Callback</h2>
-        <p>Please complete the form below, and we'll get back to you shortly</p>
-        
-        <form class="contact-form">
-            <div class="form-group">
-                <input type="text" placeholder="Your Name" required>
-            </div>
-            
-            <div class="form-group">
-                <input type="email" placeholder="Your Email" required>
-            </div>
-            
-            <div class="form-group">
-                <input type="tel" placeholder="Phone Number" required>
-            </div>
-            
-            <div class="form-group">
-                <select required>
-                    <option value="" disabled selected>Purpose of Contact</option>
-                    <option value="renovation">Home Renovation</option>
-                    <option value="maintenance">Property Maintenance</option>
-                    <option value="consultation">Free Consultation</option>
-                    <option value="quote">Request Quote</option>
-                    <option value="other">Other</option>
-                </select>
-            </div>
-            
-            <div class="form-group full-width">
-                <textarea placeholder="Your Message" required></textarea>
-            </div>
-            
-            <div class="form-group full-width">
-                <button type="submit" class="submit-btn">Request Call</button>
-            </div>
-        </form>
-    </section>
+   <!-- Success Popup -->
+<div id="successPopup" class="popup-overlay" style="display:none;">
+    <div class="popup-box">
+      <p>🎉 Your message was sent successfully!</p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+  
+  <!-- Form Section -->
+  <section class="contact-section">
+    <h2>Request a Quote</h2>
+    <p>Please complete the form below, and we'll get back to you shortly</p>
+  
+    <form class="contact-form" action="https://formsubmit.co/4c5945b1d5e22c0ca9a18ed3679c4846" method="POST" target="hidden_iframe" onsubmit="showPopup();">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="box">
+      
+      <div class="form-group"><input type="text" name="name" placeholder="Your Name" required></div>
+      <div class="form-group"><input type="email" name="email" placeholder="Your Email" required></div>
+      <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number" required></div>
+      <div class="form-group"><input type="text" name="location" placeholder="Location" required></div>
+  
+      <div class="form-group">
+        <select name="purpose" required>
+          <option value="" disabled selected>Purpose of Contact</option>
+          <option value="renovation">Home Renovation</option>
+          <option value="maintenance">Property Maintenance</option>
+          <option value="consultation">Free Consultation</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+  
+      <div class="form-group full-width">
+        <textarea name="message" placeholder="Your Message" required></textarea>
+      </div>
+  
+      <div class="form-group full-width">
+        <button type="submit" class="submit-btn">Get Quote</button>
+      </div>
+    </form>
+    
+    <!-- Hidden iframe -->
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+  </section>
+  
+  <!-- Popup CSS -->
+  <style>
+  .popup-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+  }
+  .popup-box {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  .popup-box button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  </style>
+  
+  <!-- JS -->
+  <script>
+  function showPopup() {
+    setTimeout(() => {
+      document.getElementById('successPopup').style.display = 'flex';
+    }, 1000); // Delay to simulate network time
+  }
+  
+  function closePopup() {
+    document.getElementById('successPopup').style.display = 'none';
+  }
+  </script>
+  
 
 
 
