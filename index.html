@@ -489,8 +489,8 @@
    <!-- Success Popup -->
 <div id="successPopup" class="popup-overlay" style="display:none;">
     <div class="popup-box">
-      <p>🎉 Your message was sent successfully!</p>
-      <button onclick="closePopup()">Close</button>
+      <p>🎉 Your message was sent successfully!</p><br>
+      <button onclick="closePopup()"><a href="index.html">Done</a></button>
     </div>
   </div>
   
@@ -548,14 +548,15 @@
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   }
-  .popup-box button {
+  .popup-box button a{
     margin-top: 1rem;
     padding: 0.5rem 1rem;
     border: none;
-    background-color: #333;
+    background-color: #0553b1;
     color: white;
     cursor: pointer;
-    border-radius: 6px;
+    border-radius: 2px;
+    text-decoration: none;
   }
   </style>
   
